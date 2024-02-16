@@ -22,6 +22,7 @@ EventOrganizer:
     Send notifications to attendees.
     View real-time attendance and check-in data.
     should be capable of doing everything that a user can do
+    Keep track of a Specific QR Code 
   Collaborators:
     Event
     NotificationManager
@@ -42,7 +43,6 @@ User:
     Check into events by scanning QR codes.
     View event details and receive notifications.
     Upload and manage profile picture.
-    
   Collaborators:  
     QRScanner
     ProfileManager
