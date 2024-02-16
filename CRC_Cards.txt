@@ -7,7 +7,7 @@ Event:
     QRCodeGenerator
     DatabaseManager (Firebase)
     EventOrganizer
-
+    LocationTracker
 
 QRCodeGenerator:
   Responsibilities:
@@ -15,18 +15,24 @@ QRCodeGenerator:
     Possibly regenerate or decode QR codes if necessary.
   Collaborators:
     Event
+    QRCodeManager
 
-EventOrganizer:
+Organizer:
   Responsibilities:
     Create and manage events.
     Send notifications to attendees.
     View real-time attendance and check-in data.
     should be capable of doing everything that a user can do
-    Keep track of a Specific QR Code 
+    Keep track of Specific QR Codes
+    must be able to upload an event poster for the event that the attendees can see 
+    must be able to copy and paste the qr code in app to send to other places
+    should be able to limit the number of peple able to attend an event
   Collaborators:
     Event
     NotificationManager
     DatabaseManager (Firebase)
+    QRCodeManager
+    LocationTracker
 
 Administrator:
   Responsibilities:
@@ -37,18 +43,25 @@ Administrator:
     Event
     NotificationManager
     DatabaseManager (Firebase)
+    LocationTracker
 
 User:
   Responsibilities:
     Check into events by scanning QR codes.
     View event details and receive notifications.
-    Upload and manage profile picture.
+    Upload and manage profile pictures
+    update and manage profile in general
+    be able to enable and disable location tracker as they wish
   Collaborators:  
     QRScanner
     ProfileManager
     DatabaseManager (Firebase)
-    EventOrganizer
+    Organizer
     Administrator
+    EventPage
+    UsersEventPage
+    CurrentEvents
+    LocationTracker
 
 QRScanner:
   Responsibilities:
@@ -69,16 +82,15 @@ DatabaseManager (Firebase):
     EventOrganizer
     User
     Administrator
-
+    CurrentEvents
 
 NotificationManager:
   Responsibilities:
     Send push notifications to attendees (event updates, reminders, etc.).
     Allow organizers to broadcast messages to all event attendees.
   Collaborators:
-    EventOrganizer
+    Organizer
     USER
-
 
 ProfileManager:
   Responsibilities:
@@ -87,3 +99,109 @@ ProfileManager:
   Collaborators:
     Attendee
     DatabaseManager (Firebase)
+
+QRCodeManager:
+  Responsibilities:
+    Should be able to copy and paste a QRcode to another app or email
+  Collaboratorr:
+    email and document updator contollers
+    Organizer
+
+EventPage:
+  Responsibilities:
+    to provide information on a particular event for a user veiwing it
+    allowing a user veiwing the page to sign up for a particular event
+    Should allow a user to browse event posters
+  Collaborators:
+    Event
+    User
+    CurrentEvents
+
+UsersEventPage:
+  Responsibilities:
+    Allows a user to view the events that they themselves are currently set to attend 
+    Allows a user to veiw an event they are currently attending
+  Collaborators:
+    User
+    Event
+
+CurrentEvents:
+  Responsibilities:
+    allow a user to veiw upoming events
+    allow a user to search for events in their area and by a particular search key  
+    allow a user to select a particular event to go to its eventPage
+  Collaborators:
+      Events
+      EventPage
+
+LocationTracker:
+  Responsibilities:
+    Be capable of knowing where a user/administrator/event/Organizer is 
+  Collaborators:
+    Event
+    User
+    Organizer
+    Administrator
+
+MainCLass:
+  Responsibilities:
+    should differeentiate between a user/ organizer/ administrator and diricet people accordingly
+  Collaborators:
+    Event
+    User
+    Organizer
+    Administrator
+    OrganizerPage
+    UserPage
+    AdminPage
+
+OrganizerPage:
+    Responsibilities:
+      Should allow the organizer to decide what they are going to do in the app
+    Collaborators:
+      CurrentEvents
+      QRScanner
+      DataBaseManager
+      LocationTracker
+      MainClass
+      Event
+      QRCodeGenerator
+      Organizer
+      ProfileManager
+      NotificationManager
+      EventPage
+      Event
+      QRCodeManager
+
+UserPage:
+    Responsibilities:
+      Should allow the User to decide what they are going to do in the app
+    Collaborators:
+      Current Events
+      QRScanner
+      DataBaseManager
+      UsersEventPage
+      LocationTracker
+      MainClass
+      ProfileManager
+      NotificationManager
+
+AdminPage:
+    Responsibilities:
+      Should allow the Admin to decide what they are going to do in the app
+    Collaborators:
+      CurrentEvents
+      QRScanner
+      DataBaseManager
+      LocationTracker
+      MainClass
+      Event
+      QRCodeGenerator
+      Organizer
+      ProfileManager
+      NotificationManager
+      EventPage
+      Event
+      Organizer
+      User
+      MainClass
