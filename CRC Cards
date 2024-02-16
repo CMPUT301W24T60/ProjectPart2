@@ -1,0 +1,87 @@
+Event:
+  Responsibilities:
+    Store details about an event (title, description, date, location, QR code, etc.).
+    Generate a unique QR code for check-ins.
+    Track and update attendee check-ins.
+
+  Collaborators:
+    QRCodeGenerator
+    DatabaseManager (Firebase)
+    EventOrganizer
+
+
+
+QRCodeGenerator
+Responsibilities:
+Generate QR codes for new events.
+Possibly regenerate or decode QR codes if necessary.
+
+Collaborators:
+Event
+
+ EventOrganizer
+Responsibilities:
+Create and manage events.
+Send notifications to attendees.
+View real-time attendance and check-in data.
+Collaborators:
+
+Event
+NotificationManager
+DatabaseManager (Firebase)
+
+
+Attendee
+Responsibilities:
+
+Check into events by scanning QR codes.
+View event details and receive notifications.
+Upload and manage profile picture.
+Collaborators:
+
+QRScanner
+ProfileManager
+DatabaseManager (Firebase)
+
+
+QRScanner
+Responsibilities:
+
+Scan QR codes provided by the attendees.
+Validate check-in by comparing scanned data with event details.
+Collaborators:
+
+Attendee
+Event
+
+DatabaseManager (Firebase)
+Responsibilities:
+
+Handle all data transactions with Firebase (Firestore for data, Storage for images).
+Manage real-time updates for event check-ins and attendee lists.
+Store and retrieve event posters and attendee profile pictures.
+Collaborators:
+
+Event
+EventOrganizer
+Attendee
+
+
+ NotificationManager
+Responsibilities:
+Send push notifications to attendees (event updates, reminders, etc.).
+Allow organizers to broadcast messages to all event attendees.
+Collaborators:
+EventOrganizer
+Attendee
+
+
+ProfileManager
+Responsibilities:
+
+Manage attendee profiles (uploading/removing profile pictures, updating info).
+Generate deterministic profile pictures if not uploaded.
+Collaborators:
+
+Attendee
+DatabaseManager (Firebase)
